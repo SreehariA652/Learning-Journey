@@ -16,28 +16,6 @@ def second_largest(arr):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 '''''
 Given an integer array nums sorted in non-decreasing order, return an array of the squares of each number sorted in non-decreasing order.
 
@@ -72,3 +50,37 @@ def sortedSquares(nums):
     a = [n**2 for n in nums] # squaring each element in the array and then putting it in a new awway
     a.sort() # sorting the new array
     return a
+""" 
+Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+ """
+def containsDuplicate(nums):
+    return len(nums) != len(set(nums)) #if the length of the array is not equal to the length of the set of the array then it obv means it contains duplicates
+# in leetcode, I also added if function, but this is faster and more efficient
+
+
+"""
+Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+
+The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+You must write an algorithm that runs in O(n) time and without using the division operation.
+"""
+def productExceptSelf(nums):
+    answer = [1] * len(nums) #initialising the answet array with 1s and same lenght as nums array
+    prefix, suffix = 1,1 #initialising the 2 variables as 1, this will be useful to calculate the prefix and suffix profuct instead of using them as arrays and then multiplying, we're going to go through the nums array twice(left to right and righr to left) and then multiplying the prefix and suffix product to get the final answer
+
+    for i in range(len(nums)):
+        answer[i] *= prefix # multiplying the prefix product to the answer array
+        prefix *= nums[i] # updating the prefix
+
+    for i in range(len(nums)
+                   -1, # this means start from the last index of the array
+                   -1, # stop before the first index of the array, which is 0, so we use -1
+                   -1 # move backwards by 1
+                   ): # range has 3 parameters, start, stop and step 
+        answer[i] *= suffix # multiplying the suffix product to the answer array
+        suffix *= nums[i] # updating the suffix
+    return answer
+
+nums = [1,2,3,4]
+print(productExceptSelf(nums)) # [24,12,8,6]
